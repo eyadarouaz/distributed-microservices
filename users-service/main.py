@@ -118,8 +118,13 @@ def metrics():
 @app.route('/health')
 @track_metrics
 def health():
-    return jsonify({'status': 'healthy'})
-
+    instance_id = os.getenv('INSTANCE_ID', 'unknown')
+    return jsonify({
+        'status': 'healthy',
+        'instance': instance_id,
+        'service': 'users'
+    })
+    
 # User
 @app.route('/users', methods=['GET'])
 @track_metrics
